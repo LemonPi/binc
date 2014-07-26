@@ -66,7 +66,12 @@ int RPN(string& expression, unsigned int& result) {
                 case '>': tokens.push(left >> right); break;
                 default: break;
             }
-
+        }
+        else if (c >= '!' && c <= '~') {
+            // some other valid character
+            token = static_cast<unsigned int>(c);
+            exp.ignore();
+            tokens.push(token);
         }
         else if(!exp.eof()) return FAIL;  // invalid character and not at end of stream
 
