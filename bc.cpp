@@ -12,7 +12,7 @@
 #define FAIL -1
 
 using namespace std;
-using rep_type = int;   // int, unsigned int, double, etc
+using rep_type = double;   // int, unsigned int, double 
 constexpr unsigned int bit_num = 8;
 
 // error handling ----------------------
@@ -154,6 +154,10 @@ int main(int argc, char* argv[]) {
             error("too many arguments");
             return 1;
     }
+    // predefined names
+    table["pi"] = 3.1415926536897932385;
+    table["e"] = 2.7182818284590452354;
+
     calculate();
     return no_of_errors;
 }
@@ -191,16 +195,17 @@ rep_type term (bool need_get) {   // multiply and divide
 
 rep_type bit_term (bool need_get) {   // bitwise operations
     rep_type left = prim(need_get);
+    int left_int = static_cast<int>(left);  // ensure integral type used here
 
     while (true) {
         switch (ts.current().kind) {
-            case Kind::lshift: left <<= prim(true); break;
-            case Kind::rshift: left >>= prim(true); break;
-            case Kind::band: left &= prim(true); break;
-            case Kind::bor: left |= prim(true); break;
-            case Kind::bxor: left ^= prim(true); break;
-            case Kind::bneg: left = prim(true); left = ~left; break;
-            case Kind::lit: left = static_cast<rep_type>(prim(true)); break;
+            case Kind::lshift: left_int <<= static_cast<int>(prim(true)); left = static_cast<rep_type>(left_int); break;
+            case Kind::rshift: left_int >>= static_cast<int>(prim(true)); left = static_cast<rep_type>(left_int); break;
+            case Kind::band: left_int &= static_cast<int>(prim(true)); left = static_cast<rep_type>(left_int); break;
+            case Kind::bor: left_int |= static_cast<int>(prim(true)); left = static_cast<rep_type>(left_int); break;
+            case Kind::bxor: left_int ^= static_cast<int>(prim(true)); left = static_cast<rep_type>(left_int); break;
+            case Kind::bneg: left_int = static_cast<int>(prim(true)); left_int = ~left_int; left = static_cast<rep_type>(left_int); break;
+            case Kind::lit: left_int = static_cast<rep_type>(prim(true)); left = static_cast<rep_type>(left_int); break;
             default: return left;
         }
     }
