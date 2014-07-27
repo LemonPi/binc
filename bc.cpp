@@ -2,8 +2,8 @@
 // heavily influenced by Bjarne Stroustrup's desk calculator (The C++ Programming Language 4th Edition, chapter 10)
 #include <iostream>
 #include <bitset>
-#include <stack>
 #include <map>
+#include <memory>   // shared_ptr
 #include <cctype>
 #include <string>
 #include <sstream>
@@ -41,18 +41,16 @@ class Token_stream {
 public:
     Token_stream(istream& instream_ref) : ip{&instream_ref}, owns{false} {}
     Token_stream(istream* instream_pt)  : ip{instream_pt}, owns{true} {}
-    Token_stream() { close(); }
 
     Token get();    // read and return next token
     const Token& current() { return ct; } // most recently read token
 
-    void set_input(istream& instream_ref) { close(); ip = &instream_ref; owns = false; }
-    void set_input(istream* instream_pt) { close(); ip = instream_pt; owns = true; }
+    void set_input(istream& instream_ref) { ip = shared_ptr<istream>(&instream_ref); owns = false; }
+    void set_input(istream* instream_pt) { ip = shared_ptr<istream>(instream_pt); owns = true; }
 
 private:
-    void close() { if (owns) delete ip; }
 
-    istream* ip;    // input stream pointer
+    shared_ptr<istream> ip;    // input stream pointer
     bool owns;
     Token ct {Kind::end};   // current token, default value in case of misuse
 };
