@@ -26,7 +26,7 @@ int error(const string& s) {
 
 // classes, structs, and enums ---------
 enum class Kind : char {
-    name, number, end,
+    name, number = '#', end, oct = '0', hex = 'x',
     plus = '+', minus = '-', mul = '*', div = '/', print = ';', assign = '=', lp = '(', rp = ')',
     lshift = '<', rshift = '>', band = '&', bor = '|', bxor = '^', bneg = '~', lit = '\\'
 };
@@ -84,6 +84,7 @@ Token Token_stream::get() {
         case '=':
             return ct = {static_cast<Kind>(c)};
         case '0':
+            return ct = {Kind::oct};
         case '1':
         case '2':
         case '3':
@@ -94,9 +95,14 @@ Token Token_stream::get() {
         case '8':
         case '9':
             ip->putback(c);
-            *ip >> ct.number_val;
+            if (ct.kind == Kind::hex) { int tmp; *ip >> hex >> tmp; ct.number_val = static_cast<rep_type>(tmp); }
+            else if (ct.kind == Kind::oct) { int tmp; *ip >> oct >> tmp; ct.number_val = static_cast<rep_type>(tmp); }
+            else *ip >> ct.number_val;
             ct.kind = Kind::number;
             return ct;
+        case 'x':
+            if (ct.kind == Kind::oct)   // fall down to default otherwise
+                return ct = {Kind::hex};
         default:    // name, name =, or error
             if (isalpha(c)) {
                 if (ct.kind == Kind::lit) { // character is a literal rather than a name
@@ -204,6 +210,8 @@ rep_type bit_term (bool need_get) {   // bitwise operations
             case Kind::bxor: left_int ^= static_cast<int>(prim(true)); left = static_cast<rep_type>(left_int); break;
             case Kind::bneg: left_int = static_cast<int>(prim(true)); left_int = ~left_int; left = static_cast<rep_type>(left_int); break;
             case Kind::lit: left_int = static_cast<rep_type>(prim(true)); left = static_cast<rep_type>(left_int); break;
+            case Kind::oct: left = prim(true); break;
+            case Kind::hex: left = prim(true); break;
             default: return left;
         }
     }
@@ -230,7 +238,7 @@ rep_type prim(bool need_get) {
             ts.get();    // eat ')'
             return e;
         }
-        case Kind::lit: case Kind::bneg: return rep_type{};     // unary operators
+        case Kind::lit: case Kind::bneg: case Kind::oct: case Kind::hex: return rep_type{};     // unary operators
         default: return error("primary expected");
     }
 }
