@@ -84,7 +84,8 @@ Token Token_stream::get() {
         case '=':
             return ct = {static_cast<Kind>(c)};
         case '0':
-            return ct = {Kind::oct};
+            if (isalnum(ip->peek())) // else use 0 as number
+                return ct = {Kind::oct};
         case '1':
         case '2':
         case '3':
@@ -199,17 +200,17 @@ rep_type term (bool need_get) {   // multiply and divide
 
 rep_type bit_term (bool need_get) {   // bitwise operations
     rep_type left = prim(need_get);
-    int left_int = static_cast<int>(left);  // ensure integral type used here
+    int left_int = left;  // ensure integral type used here
 
     while (true) {
         switch (ts.current().kind) {
-            case Kind::lshift: left_int <<= static_cast<int>(prim(true)); left = static_cast<rep_type>(left_int); break;
-            case Kind::rshift: left_int >>= static_cast<int>(prim(true)); left = static_cast<rep_type>(left_int); break;
-            case Kind::band: left_int &= static_cast<int>(prim(true)); left = static_cast<rep_type>(left_int); break;
-            case Kind::bor: left_int |= static_cast<int>(prim(true)); left = static_cast<rep_type>(left_int); break;
-            case Kind::bxor: left_int ^= static_cast<int>(prim(true)); left = static_cast<rep_type>(left_int); break;
-            case Kind::bneg: left_int = static_cast<int>(prim(true)); left_int = ~left_int; left = static_cast<rep_type>(left_int); break;
-            case Kind::lit: left_int = static_cast<rep_type>(prim(true)); left = static_cast<rep_type>(left_int); break;
+            case Kind::lshift: left_int <<= static_cast<int>(prim(true)); left = left_int; break;
+            case Kind::rshift: left_int >>= static_cast<int>(prim(true)); left = left_int; break;
+            case Kind::band: left_int &= static_cast<int>(prim(true)); left = left_int; break;
+            case Kind::bor: left_int |= static_cast<int>(prim(true)); left = left_int; break;
+            case Kind::bxor: left_int ^= static_cast<int>(prim(true)); left = left_int; break;
+            case Kind::bneg: left_int = static_cast<int>(prim(true)); left_int = ~left_int; left = left_int; break;
+            case Kind::lit: left_int = static_cast<rep_type>(prim(true)); left = left_int; break;
             case Kind::oct: left = prim(true); break;
             case Kind::hex: left = prim(true); break;
             default: return left;
