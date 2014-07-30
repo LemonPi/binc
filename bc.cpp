@@ -127,11 +127,12 @@ Token Token_stream::get() {
 map<string, rep_type> table;
 
 // parsing functions -------------------
-// expression hierarchy: expr -> term -> bit_term -> primary
-// each parser evaluates its expression and returns the value
+// expression hierarchy: expr -> term -> bit_term -> unary_term -> primary
+// each parser represents a step in the order of operations
 rep_type expr(bool);
 rep_type term(bool);
 rep_type bit_term(bool);
+rep_type unary_term(bool);
 rep_type prim(bool);
 
 // driver to start things -------------
@@ -199,16 +200,27 @@ rep_type term (bool need_get) {   // multiply and divide
 }
 
 rep_type bit_term (bool need_get) {   // bitwise operations
-    rep_type left = prim(need_get);
+    rep_type left = unary_term(need_get);
     int left_int = left;  // ensure integral type used here
 
     while (true) {
         switch (ts.current().kind) {
-            case Kind::lshift: left_int <<= static_cast<int>(prim(true)); left = left_int; break;
-            case Kind::rshift: left_int >>= static_cast<int>(prim(true)); left = left_int; break;
-            case Kind::band: left_int &= static_cast<int>(prim(true)); left = left_int; break;
-            case Kind::bor: left_int |= static_cast<int>(prim(true)); left = left_int; break;
-            case Kind::bxor: left_int ^= static_cast<int>(prim(true)); left = left_int; break;
+            case Kind::lshift: left_int <<= static_cast<int>(unary_term(true)); left = left_int; break;
+            case Kind::rshift: left_int >>= static_cast<int>(unary_term(true)); left = left_int; break;
+            case Kind::band: left_int &= static_cast<int>(unary_term(true)); left = left_int; break;
+            case Kind::bor: left_int |= static_cast<int>(unary_term(true)); left = left_int; break;
+            case Kind::bxor: left_int ^= static_cast<int>(unary_term(true)); left = left_int; break;
+            default: return left;
+        }
+    }
+}
+
+rep_type unary_term (bool need_get) {   // unary modification of term
+    rep_type left = prim(need_get);
+    int left_int = left;
+
+    while (true) {
+        switch (ts.current().kind) {
             case Kind::bneg: left_int = static_cast<int>(prim(true)); left_int = ~left_int; left = left_int; break;
             case Kind::lit: left_int = static_cast<rep_type>(prim(true)); left = left_int; break;
             case Kind::oct: left = prim(true); break;
