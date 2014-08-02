@@ -17,10 +17,11 @@ Lexer::Token Lexer::Token_stream::get() {
         case ';':
         case '\n':
             return ct = {Kind::print};
+        case '-':
+            if (ct.kind != Kind::number && ct.kind != Kind::name) return ct = {Kind::mag_neg};
         case '*':
         case '/':
         case '+':
-        case '-':
         case '(':
         case ')':
         case '<':

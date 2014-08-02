@@ -27,6 +27,7 @@ rep_type Parser::term (bool need_get) {   // multiply and divide
                     break;
                 }
                 return error("divide by 0");
+            case Kind::mag_neg: left = -1 * bit_term(true); break;
             default: return left;
         }
     }
@@ -84,7 +85,7 @@ rep_type Parser::prim(bool need_get) {
             ts.get();    // eat ')'
             return e;
         }
-        case Kind::lit: case Kind::bneg: case Kind::oct: case Kind::hex: return rep_type{};     // unary operators
+        case Kind::lit: case Kind::bneg: case Kind::oct: case Kind::hex: case Kind::mag_neg: return rep_type{};     // unary operators
         default: return error("primary expected");
     }
 }

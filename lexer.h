@@ -7,7 +7,7 @@
 
 namespace Lexer {
     enum class Kind : char {
-        name, number = '#', end, oct = '0', hex = 'x',
+        name, mag_neg, number = '#', end, oct = '0', hex = 'x',
         plus = '+', minus = '-', mul = '*', div = '/', print = ';', assign = '=', lp = '(', rp = ')',
         lshift = '<', rshift = '>', band = '&', bor = '|', bxor = '^', bneg = '~', lit = '\\'
     };
