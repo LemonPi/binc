@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-g -Wall -Werror -std=c++11 
 EXECUTIBLE=bc
-SOURCES=bc.cpp
+SOURCES=main.cpp parser.cpp lexer.cpp error.cpp table.cpp
 # replace all appearance of .cpp with .o
 OBJECTS=$(SOURCES:.cpp=.o)
 
