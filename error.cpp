@@ -1,4 +1,5 @@
-#include "bc.h"
+#include <iostream>
+#include "error.h"
 
 int Error::no_of_errors;
 int Error::error(const string& s) {

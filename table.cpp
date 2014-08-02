@@ -1,3 +1,3 @@
-#include "bc.h"
+#include "table.h"
 
 map<string, double> Table::table;

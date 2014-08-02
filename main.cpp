@@ -1,4 +1,8 @@
-#include "bc.h"
+#include "consts.h" // redundant, included in each separate header
+#include "parser.h"
+#include "lexer.h"
+#include "error.h"
+#include "table.h"
 #include <sstream>
 #include <bitset>
 
@@ -6,14 +10,16 @@ using namespace Lexer;
 using Parser::expr;
 using Table::table;
 
-void Driver::calculate() {
-    while (true) {
-        ts.get();
-        if (ts.current().kind == Kind::end) break;
-        if (ts.current().kind == Kind::print) continue;
-        rep_type result = expr(false);
-        bitset<bit_num> bin_rep(result);
-        cout << "Result: " << bin_rep << '(' << result << ')' << '\n';    // print out binary rep of answer
+namespace Driver {
+    void calculate() {
+        while (true) {
+            ts.get();
+            if (ts.current().kind == Kind::end) break;
+            if (ts.current().kind == Kind::print) continue;
+            rep_type result = expr(false);
+            bitset<bit_num> bin_rep(result);
+            cout << "Result: " << bin_rep << '(' << result << ')' << '\n';    // print out binary rep of answer
+        }
     }
 }
 

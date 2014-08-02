@@ -1,15 +1,7 @@
-#include "bc.h"
+#include "parser_impl.h"
+#include "table.h"
 
-namespace Parser {  // implementation interface
-    rep_type term(bool);
-    rep_type bit_term(bool);
-    rep_type unary_term(bool);
-    rep_type prim(bool);
-
-    using namespace Lexer;
-    using Error::error;
-    using Table::table;
-}
+using Table::table;
 
 rep_type Parser::expr(bool need_get) {    // add and subtract
     rep_type left = term(need_get);

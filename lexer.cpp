@@ -1,5 +1,6 @@
-#include "bc.h"
 #include <cctype>
+#include "error.h"
+#include "lexer.h"
 
 Lexer::Token_stream Lexer::ts {cin};
 
