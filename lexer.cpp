@@ -45,6 +45,7 @@ Lexer::Token Lexer::Token_stream::get() {
         case '7':
         case '8':
         case '9':
+        case '.':
             ip->putback(c);
             if (ct.kind == Kind::hex) { int tmp; *ip >> hex >> tmp; ct.number_val = static_cast<rep_type>(tmp); }
             else if (ct.kind == Kind::oct) { int tmp; *ip >> oct >> tmp; ct.number_val = static_cast<rep_type>(tmp); }
