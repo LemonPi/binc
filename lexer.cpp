@@ -34,8 +34,13 @@ Lexer::Token Lexer::Token_stream::get() {
         case '=':
             return ct = {static_cast<Kind>(c)};
         case '0':
-            if (isalnum(ip->peek())) // else use 0 as number
-                return ct = {Kind::oct};
+            if (isalnum(ip->peek())) { // else use 0 as number
+                if (ip->peek() == 'x') {
+                    ip->get();
+                    ct = {Kind::hex};
+                }
+                else ct = {Kind::oct};
+            }   // automatically drop down to number treatment
         case '1':
         case '2':
         case '3':
@@ -52,9 +57,6 @@ Lexer::Token Lexer::Token_stream::get() {
             else *ip >> ct.number_val;
             ct.kind = Kind::number;
             return ct;
-        case 'x':
-            if (ct.kind == Kind::oct)   // fall down to default otherwise
-                return ct = {Kind::hex};
         default:    // name, name =, or error
             if (isalpha(c)) {
                 if (ct.kind == Kind::lit) { // character is a literal rather than a name

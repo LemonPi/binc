@@ -57,8 +57,6 @@ rep_type Parser::unary_term (bool need_get) {   // unary modification of term
         switch (ts.current().kind) {
             case Kind::bneg: left_int = static_cast<int>(prim(true)); left_int = ~left_int; left = left_int; break;
             case Kind::lit: left_int = static_cast<rep_type>(prim(true)); left = left_int; break;
-            case Kind::oct: left = prim(true); break;
-            case Kind::hex: left = prim(true); break;
             default: return left;
         }
     }
@@ -85,7 +83,7 @@ rep_type Parser::prim(bool need_get) {
             ts.get();    // eat ')'
             return e;
         }
-        case Kind::lit: case Kind::bneg: case Kind::oct: case Kind::hex: case Kind::mag_neg: return rep_type{};     // unary operators
+        case Kind::lit: case Kind::bneg: case Kind::mag_neg: return rep_type{};     // unary operators
         default: return error("primary expected");
     }
 }
