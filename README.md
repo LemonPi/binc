@@ -2,7 +2,9 @@ bincalc
 =======
 
 Stream based calculator with variables and bitwise operator support.
-Useful for practicing binary manipulation.
+Useful for practicing boolean algebra and bit manipulation.
+
+Includes binary built on Windows 7 x64
 
 Tips:
 - build by typing "make" in the same directory
