@@ -4,7 +4,7 @@ bincalc
 Stream based calculator with variables and bitwise operator support.
 Useful for practicing boolean algebra and bit manipulation.
 
-Includes binary built on Windows 7 x64
+Includes binary built on Windows 7 x64 (bc-windows) and Ubuntu 14.04 (bc-linux)
 
 Tips:
 - build by typing "make" in the same directory
