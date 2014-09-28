@@ -2,7 +2,7 @@
 #include "error.h"
 #include "lexer.h"
 
-Lexer::Token_stream Lexer::ts {cin};
+Lexer::Token_stream Lexer::ts {nullptr};
 
 Lexer::Token Lexer::Token_stream::get() {
     // read 1 char, decide what kind of token is incoming,
