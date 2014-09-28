@@ -12,6 +12,7 @@ using Table::table;
 
 namespace Driver {
     void calculate() {
+        ts.set_input(cin);
         while (true) {
             ts.get();
             if (ts.current().kind == Kind::end) break;
@@ -52,6 +53,6 @@ int main(int argc, char* argv[]) {
     table["e"] = 2.7182818284590452354;
 
     // Driver::calculate();
-    Driver::calc_str_loop();
+    Driver::calculate();
     return Error::no_of_errors;
 }
