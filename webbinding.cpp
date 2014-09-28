@@ -11,11 +11,9 @@ using namespace Lexer;
 using Parser::expr;
 using Table::table;
 
+
 string calc_str(string input) {
-	cout << input << endl;
-	
-	istringstream in(input);
-	ts.set_input(in);
+	ts.set_input(new istringstream(input));
 	rep_type result = expr(true);
 	
 	bitset<bit_num> bin_rep(result);

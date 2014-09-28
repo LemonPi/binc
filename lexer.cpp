@@ -13,7 +13,6 @@ Lexer::Token Lexer::Token_stream::get() {
     do {  // skip all whitespace except newline
         if(!ip->get(c)) return ct = {Kind::end};  // no char can be read from ip
     } while (c != '\n' && isspace(c));
-	cout << "token: " << c << endl;
     switch (c) {
         case ';':
         case '\n':
@@ -36,10 +35,7 @@ Lexer::Token Lexer::Token_stream::get() {
             return ct = {static_cast<Kind>(c)};
         case '0':
             if (isalnum(ip->peek())) { // else use 0 as number
-                if (ip->peek() == 'x') {
-                    ip->get();
-                    ct = {Kind::hex};
-                }
+                if (ip->peek() == 'x') ct = {Kind::hex};
                 else ct = {Kind::oct};
             }   // automatically drop down to number treatment
         case '1':
@@ -57,10 +53,9 @@ Lexer::Token Lexer::Token_stream::get() {
             else if (ct.kind == Kind::oct) { int tmp; *ip >> oct >> tmp; ct.number_val = static_cast<rep_type>(tmp); }
             else *ip >> ct.number_val;
             ct.kind = Kind::number;
-			cout << ct.number_val << endl;
             return ct;
 		case 'b': 	// binary
-            if (ip->peek() == 0 || ip->peek() == 1) {
+            if (ip->peek() == '0' || ip->peek() == '1') {
                 bitset<bit_num> bits;
                 *ip >> bits;
                 ct.number_val = static_cast<rep_type>(bits.to_ulong());
