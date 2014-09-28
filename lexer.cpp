@@ -1,4 +1,5 @@
 #include <cctype>
+#include <bitset>
 #include "error.h"
 #include "lexer.h"
 
@@ -57,6 +58,13 @@ Lexer::Token Lexer::Token_stream::get() {
             else *ip >> ct.number_val;
             ct.kind = Kind::number;
             return ct;
+		case 'b': {	// binary
+			bitset<bit_num> bits;
+			*ip >> bits;
+			ct.number_val = static_cast<rep_type>(bits.to_ulong());
+			ct.kind = Kind::number;
+			return ct;
+		}
         default:    // name, name =, or error
             if (isalpha(c)) {
                 if (ct.kind == Kind::lit) { // character is a literal rather than a name
