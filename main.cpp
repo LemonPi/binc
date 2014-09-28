@@ -12,7 +12,7 @@ using Table::table;
 
 namespace Driver {
     void calculate() {
-		ts.set_input(cin);
+        ts.set_input(cin);
         while (true) {
             ts.get();
             if (ts.current().kind == Kind::end) break;
@@ -22,8 +22,20 @@ namespace Driver {
             cout << "Result: " << bin_rep << '(' << result << ')' << '\n';    // print out binary rep of answer
         }
     }
-	
 
+    void calc_str(string s) {
+        ts.set_input(new istringstream(s));
+        rep_type result = expr(true);
+        bitset<bit_num> bin_rep(result);
+        cout << "Result: " << bin_rep << '(' << result << ')' << '\n';    // print out binary rep of answer
+    }
+    void calc_str_loop() {
+        while (true) {
+            string s;
+            getline(cin, s);
+            calc_str(s);
+        }
+    }
 }
 
 int main(int argc, char* argv[]) {
@@ -41,6 +53,7 @@ int main(int argc, char* argv[]) {
     table["pi"] = 3.1415926536897932385;
     table["e"] = 2.7182818284590452354;
 
+    // Driver::calculate();
     Driver::calculate();
     return Error::no_of_errors;
 }
