@@ -3,7 +3,7 @@
 #include "error.h"
 #include "lexer.h"
 
-Lexer::Token_stream Lexer::ts {cin};
+Lexer::Token_stream Lexer::ts {nullptr};
 
 Lexer::Token Lexer::Token_stream::get() {
     // read 1 char, decide what kind of token is incoming,
@@ -13,7 +13,7 @@ Lexer::Token Lexer::Token_stream::get() {
     do {  // skip all whitespace except newline
         if(!ip->get(c)) return ct = {Kind::end};  // no char can be read from ip
     } while (c != '\n' && isspace(c));
-
+	cout << "token: " << c << endl;
     switch (c) {
         case ';':
         case '\n':
@@ -57,6 +57,7 @@ Lexer::Token Lexer::Token_stream::get() {
             else if (ct.kind == Kind::oct) { int tmp; *ip >> oct >> tmp; ct.number_val = static_cast<rep_type>(tmp); }
             else *ip >> ct.number_val;
             ct.kind = Kind::number;
+			cout << ct.number_val << endl;
             return ct;
 		case 'b': {	// binary
 			bitset<bit_num> bits;

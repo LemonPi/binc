@@ -2,6 +2,7 @@
 #include "table.h"
 
 using Table::table;
+using namespace std;
 
 rep_type Parser::expr(bool need_get) {    // add and subtract
     rep_type left = term(need_get);

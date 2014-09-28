@@ -5,6 +5,7 @@
 #include <memory>   // shared_ptr
 #include "consts.h"
 
+using namespace std;
 namespace Lexer {
     enum class Kind : char {
         name, mag_neg, number = '#', end, oct = '0', hex = 'x',

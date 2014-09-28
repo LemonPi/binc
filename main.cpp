@@ -12,6 +12,7 @@ using Table::table;
 
 namespace Driver {
     void calculate() {
+		ts.set_input(cin);
         while (true) {
             ts.get();
             if (ts.current().kind == Kind::end) break;
@@ -21,6 +22,8 @@ namespace Driver {
             cout << "Result: " << bin_rep << '(' << result << ')' << '\n';    // print out binary rep of answer
         }
     }
+	
+
 }
 
 int main(int argc, char* argv[]) {

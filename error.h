@@ -5,6 +5,6 @@
 
 namespace Error {
     extern int no_of_errors;
-    int error(const string&);
+    int error(const std::string&);
 }
 #endif
