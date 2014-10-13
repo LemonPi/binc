@@ -17,13 +17,19 @@ Lexer::Token Lexer::Token_stream::get() {
         case ';':
         case '\n':
             return ct = {Kind::print};
-        case '-':
-            if (ct.kind != Kind::number && ct.kind != Kind::name) return ct = {Kind::mag_neg};
+        case '!':
+            if (ct.kind == Kind::number || ct.kind == Kind::name) { ct.kind = Kind::fact; return ct; }
         case '*':
-        case '/':
-        case '+':
+            // cout << "peeking: " << static_cast<char>(ip->peek()) << endl;
+            if (ip->peek() == '*') { ip->get(); return ct = {Kind::pow}; }
+            else return ct = {Kind::mul};
+        case '-':
+            if (ct.kind == Kind::number || ct.kind == Kind::name) return ct = {Kind::minus};
+        case '%':
         case '(':
         case ')':
+        case '+':
+        case '/':
         case '<':
         case '>':
         case '&':

@@ -8,8 +8,9 @@
 using namespace std;
 namespace Lexer {
     enum class Kind : char {
-        name, mag_neg, number = '#', end, oct = '0', hex = 'x',
-        plus = '+', minus = '-', mul = '*', div = '/', print = ';', assign = '=', lp = '(', rp = ')',
+        name, minus, number = '#', end, oct = '0', hex = 'x',
+        plus = '+', mag_neg = '-', mul = '*', div = '/', print = ';', assign = '=', lp = '(', rp = ')',
+        fact = '!', pow = '\'', mod = '%',
         lshift = '<', rshift = '>', band = '&', bor = '|', bxor = '^', bneg = '~', lit = '\\'
     };
     struct Token {

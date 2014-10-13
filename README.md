@@ -6,6 +6,13 @@ Useful for practicing boolean algebra and bit manipulation.
 
 Includes binary built on Windows 7 x64 (bc-windows) and Ubuntu 14.04 (bc-linux)
 
+Operators
+ - * / + - % basic arithmetic
+ - > < bit shifts
+ - & | ^ ~ binary logic (^ is XOR, ~ is NOT)
+ - ** ! exponent and factorial 
+
+
 Tips:
 - build by typing "make" in the same directory
 - requires a compiler supporting C++11 (makefile builds with g++ by default)
