@@ -20,18 +20,15 @@ Lexer::Token Lexer::Token_stream::get() {
         case '!':
             if (ct.kind == Kind::number || ct.kind == Kind::name) { ct.kind = Kind::fact; return ct; }
         case '*':
-            // cout << "peeking: " << static_cast<char>(ip->peek()) << endl;
             if (ip->peek() == '*') { ip->get(); return ct = {Kind::pow}; }
             else return ct = {Kind::mul};
         case '-':
-            if (ct.kind == Kind::number || ct.kind == Kind::name) return ct = {Kind::minus};
+            if (ct.kind == Kind::number || ct.kind == Kind::name || ct.kind == Kind::rp) return ct = {Kind::minus};
         case '%':
         case '(':
         case ')':
         case '+':
         case '/':
-        case '<':
-        case '>':
         case '&':
         case '|':
         case '^':
@@ -39,6 +36,10 @@ Lexer::Token Lexer::Token_stream::get() {
         case '\\':
         case '=':
             return ct = {static_cast<Kind>(c)};
+        case '>':
+        case '<':
+        	if (ip->peek() == c) ip->get(); // get >> and <<
+        	return ct = {static_cast<Kind>(c)}; 
         case '0':
             if (isalnum(ip->peek())) { // else use 0 as number
                 if (ip->peek() == 'x') ct = {Kind::hex};
