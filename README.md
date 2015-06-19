@@ -1,17 +1,20 @@
 bincalc
 =======
 
-Stream based calculator with variables and bitwise operator support.
-Useful for practicing boolean algebra and bit manipulation.
+Very fast and simple stream based calculator with variables and bitwise operator support.
+Especially useful for practicing boolean algebra and bit manipulation.
 
-Includes binary built on Windows 7 x64 (bc-windows) and Ubuntu 14.04 (bc-linux)
 
-Operators
+Operators:
  - * / + - % basic arithmetic
- - > < bit shifts
+ - >> << bit shifts
  - & | ^ ~ binary logic (^ is XOR, ~ is NOT)
  - ** ! exponent and factorial 
 
+Todo:
+ - function support (common trig functions)
+ - symbolic math
+ - keep track of value history
 
 Tips:
 - build by typing "make" in the same directory

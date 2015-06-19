@@ -1,8 +1,8 @@
-#include "consts.h"
-#include "parser.h"
-#include "lexer.h"
-#include "error.h"
-#include "table.h"
+#include "../core/consts.h"
+#include "../core/parser.h"
+#include "../core/lexer.h"
+#include "../core/error.h"
+#include "../core/table.h"
 #include <sstream>
 #include <bitset>
 #include "emscripten/bind.h"
