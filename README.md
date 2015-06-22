@@ -10,11 +10,12 @@ Operators:
  - >> << bit shifts
  - & | ^ ~ binary logic (^ is XOR, ~ is NOT)
  - ** ! exponent and factorial 
+ - @ retrieves last value, @@ retrieves value 2 lines up (using only @ does not add to history)
 
 Todo:
  - function support (common trig functions)
  - symbolic math
- - keep track of value history
+ - ~~keep track of value history~~
 
 Tips:
 - build by typing "make" in the same directory

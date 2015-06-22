@@ -3,16 +3,21 @@
 #include "error.h"
 #include "lexer.h"
 
-Lexer::Token_stream Lexer::ts {nullptr};
+namespace Lexer {
 
-Lexer::Token Lexer::Token_stream::get() {
+
+Token_stream ts {nullptr};
+
+Token Token_stream::get() {
     // read 1 char, decide what kind of token is incoming,
     // appropriately read more char then return Token
     char c = 0;
 
-    do {  // skip all whitespace except newline
+    // skip all whitespace except newline
+    do {  
         if(!ip->get(c)) return ct = {Kind::end};  // no char can be read from ip
     } while (c != '\n' && isspace(c));
+
     switch (c) {
         case ';':
         case '\n':
@@ -35,7 +40,7 @@ Lexer::Token Lexer::Token_stream::get() {
         case '~':
         case '\\':
         case '=':
-            return ct = {static_cast<Kind>(c)};
+            return ct = {static_cast<Kind>(c)}; // operators
         case '>':
         case '<':
         	if (ip->peek() == c) ip->get(); // get >> and <<
@@ -61,6 +66,16 @@ Lexer::Token Lexer::Token_stream::get() {
             else *ip >> ct.number_val;
             ct.kind = Kind::number;
             return ct;
+        case '@': {
+            size_t from_last {1};
+            while (ip->peek() == '@') {
+                ip->get(c);
+                ++from_last;
+            }
+            ct.number_val = from_last;
+            ct.kind = Kind::last;
+            return ct; 
+        }
 		case 'b': 	// binary
             if (ip->peek() == '0' || ip->peek() == '1') {
                 bitset<bit_num> bits;
@@ -76,6 +91,7 @@ Lexer::Token Lexer::Token_stream::get() {
                     ct.kind = Kind::number;
                     return ct;
                 }
+
                 ct.string_val = c;
                 while (ip->get(c) && isalnum(c))
                     ct.string_val += c;    // append each letter of name
@@ -88,3 +104,5 @@ Lexer::Token Lexer::Token_stream::get() {
     }
 }
 
+
+}   // end namespace Lexer

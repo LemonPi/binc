@@ -3,9 +3,12 @@
 #include "table.h"
 
 using Table::table;
-using namespace std;
+using Table::history;
 
-rep_type Parser::expr(bool need_get) {    // add and subtract
+namespace Parser {
+
+using namespace std;
+rep_type expr(bool need_get) {    // add and subtract
     rep_type left = term(need_get);
 
     while (true) {
@@ -17,7 +20,7 @@ rep_type Parser::expr(bool need_get) {    // add and subtract
     }
 }
 
-rep_type Parser::term (bool need_get) {   // multiply and divide
+rep_type term (bool need_get) {   // multiply and divide
     rep_type left = bit_term(need_get);
 
     while (true) {
@@ -41,7 +44,7 @@ rep_type Parser::term (bool need_get) {   // multiply and divide
     }
 }
 
-rep_type Parser::bit_term (bool need_get) {   // bitwise operations
+rep_type bit_term (bool need_get) {   // bitwise operations
     rep_type left = unary_term(need_get);
     int left_int = left;  // ensure integral type used here
 
@@ -58,7 +61,7 @@ rep_type Parser::bit_term (bool need_get) {   // bitwise operations
     }
 }
 
-rep_type Parser::unary_term (bool need_get) {   // unary modification of term
+rep_type unary_term (bool need_get) {   // unary modification of term
     rep_type left = prim(need_get);
     int left_int = left;
 
@@ -73,7 +76,7 @@ rep_type Parser::unary_term (bool need_get) {   // unary modification of term
     }
 }
 
-rep_type Parser::prim(bool need_get) {
+rep_type prim(bool need_get) {
     if (need_get) ts.get(); // read next token
 
     switch (ts.current().kind) {
@@ -97,6 +100,11 @@ rep_type Parser::prim(bool need_get) {
         }
         case Kind::lit: case Kind::bneg: case Kind::mag_neg: case Kind::pow:
             return rep_type{};     // unary operators
+        case Kind::last: 
+            if (ts.current().number_val <= history.size()) return history[history.size() - ts.current().number_val];
+            else return error("looking past history's content");
         default: return error("primary expected");
     }
 }
+
+}   // end namespace Parser

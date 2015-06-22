@@ -1,8 +1,15 @@
 #include <iostream>
 #include <bitset>
 #include "../core/consts.h"
+#include "../core/table.h"
+#include "../core/lexer.h"
+
+using Table::history;
+using Lexer::ts;
+using Lexer::Kind;
 
 void print_result(rep_type result) {
+	if (ts.current().kind != Kind::last) history.push_back(result);
     std::bitset<bit_num> bin_rep(result);
     std::cout << "Result: "; 
     for (int bit = bit_num - 1; bit >= 3; bit -= 4) {

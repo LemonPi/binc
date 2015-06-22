@@ -1,3 +1,5 @@
 #include "table.h"
+using namespace std;
 
-map<string, double> Table::table;
+unordered_map<string, rep_type> Table::table;
+vector<rep_type> Table::history;

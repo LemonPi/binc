@@ -1,11 +1,12 @@
-#ifndef bc_table
-#define bc_table
-#include <map>
+#pragma once
+#include <unordered_map>
 #include <string>
+#include <vector>
 #include "consts.h"
 
-using namespace std;
 namespace Table {
-    extern map<string, double> table;
+    extern std::unordered_map<std::string, rep_type> table;
+    extern std::vector<rep_type> history;
+
 }
-#endif
+
