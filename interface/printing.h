@@ -1,14 +1,16 @@
 #include <iostream>
 #include <bitset>
 #include "../core/consts.h"
-#include "../core/table.h"
+#include "../core/lookup.h"
 #include "../core/lexer.h"
 
-using Table::history;
+using Lookup::history;
 using Lexer::ts;
 using Lexer::Kind;
 
 void print_result(rep_type result) {
+	if (abs(result) < round_off) result = 0;
+	
 	if (ts.current().kind != Kind::last) history.push_back(result);
     std::bitset<bit_num> bin_rep(result);
     std::cout << "Result: "; 

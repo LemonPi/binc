@@ -1,13 +1,14 @@
 #include <cmath>
 #include "parser_impl.h"
-#include "table.h"
+#include "lookup.h"
 
-using Table::table;
-using Table::history;
 
 namespace Parser {
 
+using namespace Lookup;
 using namespace std;
+
+
 rep_type expr(bool need_get) {    // add and subtract
     rep_type left = term(need_get);
 
@@ -87,9 +88,33 @@ rep_type prim(bool need_get) {
             return val;
         }
         case Kind::name: {
-            rep_type& val = table[ts.current().string_val];  // find corresponding val in table
-            if (ts.get().kind == Kind::assign) val = expr(true);   // assigning to name
-            return val;
+            // function names will mask value names, look in functions first
+            auto unary_func = unary_funcs.find(ts.current().string_val);
+            if (unary_func != unary_funcs.end()) {
+                cout << "unary function found\n";
+                return unary_func->second(expr(true));
+            }
+
+            // else check numeric val in table
+            // moved sicne it will not be queried afterwards
+            string var_name {std::move(ts.current().string_val)};
+            // assigning to name
+            if (ts.get().kind == Kind::assign) {
+                rep_type& val = table[var_name];
+                val = expr(true);
+                return val;
+            }
+            // looking up name
+            else {
+                auto val_itr = table.find(var_name);
+                if (val_itr != table.end()) {
+                    rep_type& val = val_itr->second;  
+                    return val;
+                }
+                else {
+                    return error(var_name + " not found");
+                }
+            }  
         }
         case Kind::lp: {
             auto e = expr(true); // incoming expression
@@ -101,7 +126,11 @@ rep_type prim(bool need_get) {
         case Kind::lit: case Kind::bneg: case Kind::mag_neg: case Kind::pow:
             return rep_type{};     // unary operators
         case Kind::last: 
-            if (ts.current().number_val <= history.size()) return history[history.size() - ts.current().number_val];
+            if (ts.current().number_val <= history.size()) {
+                rep_type past_val {history[history.size() - ts.current().number_val]};
+                ts.get();   // load up next token
+                return past_val;
+            }
             else return error("looking past history's content");
         default: return error("primary expected");
     }

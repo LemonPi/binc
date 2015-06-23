@@ -1,6 +1,6 @@
-#ifndef bc_parser
-#define bc_parser
+#pragma once
 namespace Parser {
-    double expr(bool);
+
+double expr(bool);
+
 }
-#endif

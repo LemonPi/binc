@@ -4,7 +4,7 @@ OPTIMIZATION=-O3
 CFLAGS=-g -Wall -Werror -std=c++11 $(OPTIMIZATION)
 
 EXECUTIBLE=binc
-SOURCES=interface/cmdbinding.cpp core/parser.cpp core/lexer.cpp core/error.cpp core/table.cpp
+SOURCES=interface/cmdbinding.cpp core/parser.cpp core/lexer.cpp core/error.cpp core/lookup.cpp
 BUILD_DIR = build
 
 
@@ -13,6 +13,7 @@ OBJECTS=${SOURCES:%.cpp=${BUILD_DIR}/%.o}
 
 
 all: $(EXECUTIBLE)
+	cp binc.exe bin/
 
 # $@ is automatic variable for target name
 $(EXECUTIBLE): $(OBJECTS)

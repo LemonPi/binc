@@ -4,7 +4,9 @@
 #include "consts.h"
 
 namespace Error {
-    extern int no_of_errors;
-    int error(const std::string&);
+
+extern int no_of_errors;
+int error(const std::string&);
+    
 }
 #endif

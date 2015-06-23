@@ -2,13 +2,13 @@
 #include "../core/parser.h"
 #include "../core/lexer.h"
 #include "../core/error.h"
-#include "../core/table.h"
+#include "../core/lookup.h"
 #include "printing.h"
 #include <sstream>
 
 using namespace Lexer;
 using Parser::expr;
-using Table::table;
+using Lookup::table;
 
 namespace Driver {
 
@@ -56,9 +56,7 @@ int main(int argc, char* argv[]) {
             Error::error("too many arguments");
             return 1;
     }
-    // predefined names
-    table["pi"] = 3.1415926536897932385;
-    table["e"] = 2.7182818284590452354;
+
 
     Driver::calculate();
     return Error::no_of_errors;

@@ -2,14 +2,14 @@
 #include "../core/parser.h"
 #include "../core/lexer.h"
 #include "../core/error.h"
-#include "../core/table.h"
+#include "../core/lookup.h"
 #include <sstream>
 #include <bitset>
 #include "emscripten/bind.h"
 using namespace emscripten;
 using namespace Lexer;
 using Parser::expr;
-using Table::table;
+using Lookup::table;
 
 
 string calc_str(string input) {

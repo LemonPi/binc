@@ -93,7 +93,7 @@ Token Token_stream::get() {
                 }
 
                 ct.string_val = c;
-                while (ip->get(c) && isalnum(c))
+                while (ip->get(c) && (isalnum(c) || isname_punc(c)))
                     ct.string_val += c;    // append each letter of name
                 ip->putback(c);     // while loop reads 1 extra char
                 ct.kind = Kind::name;
@@ -104,5 +104,12 @@ Token Token_stream::get() {
     }
 }
 
+bool isname_punc(char c) {
+    switch (c) {
+        case '_':
+            return true;
+        default: return false;
+    }
+}
 
 }   // end namespace Lexer
