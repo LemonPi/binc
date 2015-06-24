@@ -117,6 +117,10 @@ dec
 terse
 verbose
 
+// whether to have > prompt
+prompt
+noprompt
+
 // list history
 hist
 history
