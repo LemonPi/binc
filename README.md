@@ -49,6 +49,13 @@ cmd> binc "1 + 2 * 3; @ / 2"
 7
 3.5
 
+cmd> binc < math_file
+> 0000 0000 0000 0000 0000 0000 0011 0110 (54)
+> 0000 0000 0000 0000 0000 0000 0110 1100 (108)
+
+cmd> cat math_file
+2 + 52
+@ * 2
 ```
 The output terminates with a newline.
 
