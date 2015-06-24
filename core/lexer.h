@@ -9,9 +9,9 @@ namespace Bincalc {
 using namespace std;
 
 enum class Kind : char {
-    name, minus, number = '#', end, oct = '0', hex = 'x',
-    plus = '+', mag_neg = '-', mul = '*', div = '/', print = ';', assign = '=', lp = '(', rp = ')',
-    fact = '!', pow = '\'', mod = '%',
+    name = 'n', minus = 'm', number = '#', end = '.', oct = '0', hex = 'x',
+    plus = '+', mag_neg = '-', mul = '*', div = '/', print = ';', newline = '\n',
+    assign = '=', lp = '(', rp = ')', fact = '!', pow = '\'', mod = '%',
     lshift = '<', rshift = '>', band = '&', bor = '|', bxor = '^', bneg = '~', lit = '\\',
     last = '@'
 };

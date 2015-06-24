@@ -18,19 +18,34 @@ void calculate() {
     print_prompt();
     while (true) {
         ts.get();
+        DEBUG('[' << static_cast<char>(ts.current().kind) << ']')
+
         if (ts.current().kind == Kind::end) break;
         if (ts.current().kind == Kind::print) continue;
         rep_type result = expr(false);
-        // want to display with space between every 4 characters
         print_result(result);
-        print_prompt();
+        if (ts.current().kind == Kind::newline) print_prompt();
     }
 }
+
+// print tersely and without prompt
+void calculate_pipe() {
+    terse = true;
+    while (true) {
+        ts.get();
+        if (ts.current().kind == Kind::end) break;
+        if (ts.current().kind == Kind::print) continue;
+        rep_type result = expr(false);
+        print_result(result);
+    }
+}
+
 
 void calc_str(string s) {
     ts.set_input(new istringstream(s));
     rep_type result = expr(true);
-    cout << result;
+    print_result(result);
+    print_prompt();
 }
 
 void calc_str_loop() {
@@ -48,16 +63,16 @@ namespace bc =  Bincalc;
 int main(int argc, char* argv[]) {
     switch (argc) {
         case 1:
+            bc::calculate();
             break;
-        case 2:
-            bc::calc_str(argv[1]);
-            return 0;
         default:
-            bc::error("too many arguments");
-            return 1;
+            std::stringstream str_stream; 
+            for (int arg = 1; arg < argc; ++arg) str_stream << argv[arg];
+
+            bc::ts.set_input(str_stream);
+            bc::calculate_pipe();
     }
 
 
-    bc::calculate();
     return bc::no_of_errors;
 }

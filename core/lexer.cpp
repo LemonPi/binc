@@ -20,9 +20,6 @@ Token Token_stream::get() {
     } while (c != '\n' && isspace(c));
 
     switch (c) {
-        case ';':
-        case '\n':
-            return ct = {Kind::print};
         case '!':
             if (ct.kind == Kind::number || ct.kind == Kind::name) { ct.kind = Kind::fact; return ct; }
         case '*':
@@ -30,6 +27,8 @@ Token Token_stream::get() {
             else return ct = {Kind::mul};
         case '-':
             if (ct.kind == Kind::number || ct.kind == Kind::name || ct.kind == Kind::rp) return ct = {Kind::minus};
+        case ';':
+        case '\n':
         case '%':
         case '(':
         case ')':

@@ -1,6 +1,6 @@
 #pragma once
 
-// #define DEBUG_BUILD
+#define DEBUG_BUILD
 
 #ifdef DEBUG_BUILD
 #	define DEBUG(x) {std::cerr << x << '\n';} 

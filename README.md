@@ -35,8 +35,9 @@ cmd> binc
 19
 97
 100
-> sin(pi)
+> sin(pi); cos(pi)
 0
+-1
 > ln 5
 1.60944
 > exit
@@ -44,9 +45,12 @@ cmd> binc
 
 #### Pipe mode
 ```
-cmd> binc 2+4
-6
+cmd> binc "1 + 2 * 3; @ / 2"
+7
+3.5
+
 ```
+The output terminates with a newline.
 
 ### Operators
  - `* / + - %` basic arithmetic
