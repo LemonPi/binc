@@ -1,25 +1,32 @@
 #include <iostream>
 #include <bitset>
+#include <cmath>    // abs
 #include "../core/consts.h"
 #include "../core/lookup.h"
 #include "../core/lexer.h"
 
-using Lookup::history;
-using Lexer::ts;
-using Lexer::Kind;
+
+namespace Bincalc {
+
+using std::cout;
 
 void print_result(rep_type result) {
-	if (abs(result) < round_off) result = 0;
-	
-	if (ts.current().kind != Kind::last) history.push_back(result);
+    if (std::abs(result) < round_off) result = 0;
+    // need to query previous token since parsing eats the next token
+    if (ts.previous().kind != Kind::last) history.push_back(result);
     std::bitset<bit_num> bin_rep(result);
-    std::cout << "Result: "; 
+    cout << "Result: "; 
     for (int bit = bit_num - 1; bit >= 3; bit -= 4) {
-        std::cout << bin_rep[bit] << bin_rep[bit - 1] << bin_rep[bit - 2] << bin_rep[bit - 3] << ' ';
+        cout << bin_rep[bit] << bin_rep[bit - 1] << bin_rep[bit - 2] << bin_rep[bit - 3] << ' ';
     }
-    std::cout << '(' << result << ')' << '\n';    // print out binary rep of answer
+     
+    if (cout.flags() & std::ios::dec) cout << '(' << result << ')' << '\n';    // normal print for decimals
+    else cout << '(' << (long long) result << ')' << '\n';  // need to cast to integral form for hex and oct printing
 }
 
 void print_prompt() {
-	std::cout << "> ";
+    cout << "> ";
 }
+
+
+}   // end namespace Bincalc

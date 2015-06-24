@@ -6,12 +6,7 @@
 #include "printing.h"
 #include <sstream>
 
-using namespace Lexer;
-using Parser::expr;
-using Lookup::table;
-
-namespace Driver {
-
+namespace Bincalc {
 
 void calculate() {
     ts.set_input(cin);
@@ -45,19 +40,20 @@ void calc_str_loop() {
 
 }
 
+namespace bc =  Bincalc;
 int main(int argc, char* argv[]) {
     switch (argc) {
         case 1:
             break;
         case 2:
-            ts.set_input(new istringstream{argv[1]});
+            bc::ts.set_input(new std::istringstream{argv[1]});
             break;
         default:
-            Error::error("too many arguments");
+            bc::error("too many arguments");
             return 1;
     }
 
 
-    Driver::calculate();
-    return Error::no_of_errors;
+    bc::calculate();
+    return bc::no_of_errors;
 }

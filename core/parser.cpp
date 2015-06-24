@@ -3,9 +3,8 @@
 #include "lookup.h"
 
 
-namespace Parser {
+namespace Bincalc {
 
-using namespace Lookup;
 using namespace std;
 
 
@@ -88,16 +87,26 @@ rep_type prim(bool need_get) {
             return val;
         }
         case Kind::name: {
+            // moved sicne it will not be queried afterwards
+            string var_name {std::move(ts.current().string_val)};
+
             // function names will mask value names, look in functions first
-            auto unary_func = unary_funcs.find(ts.current().string_val);
+            auto unary_func = unary_funcs.find(var_name);
             if (unary_func != unary_funcs.end()) {
                 cout << "unary function found\n";
-                return unary_func->second(expr(true));
+                return unary_func->second(prim(true));
+            }
+
+            // functions that take no arguments and modify state
+            auto modifier_func = modifier_funcs.find(var_name);
+            if (modifier_func != modifier_funcs.end()) {
+                cout << "modifier function found\n";
+                modifier_func->second();
+                ts.get();
+                return 0;
             }
 
             // else check numeric val in table
-            // moved sicne it will not be queried afterwards
-            string var_name {std::move(ts.current().string_val)};
             // assigning to name
             if (ts.get().kind == Kind::assign) {
                 rep_type& val = table[var_name];

@@ -4,9 +4,10 @@
 #include <memory>   // shared_ptr
 #include "consts.h"
 
-namespace Lexer {
+namespace Bincalc {
 
 using namespace std;
+
 enum class Kind : char {
     name, minus, number = '#', end, oct = '0', hex = 'x',
     plus = '+', mag_neg = '-', mul = '*', div = '/', print = ';', assign = '=', lp = '(', rp = ')',
@@ -25,17 +26,23 @@ class Token_stream {
 public:
     Token_stream(istream& instream_ref) : ip{&instream_ref}, owns{false} {}
     Token_stream(istream* instream_pt)  : ip{instream_pt}, owns{true} {}
+    ~Token_stream() {clear();}
 
     Token get();    // read and return next token
     const Token& current() { return ct; } // most recently read token
+    const Token& previous() { return pt; } 
 
-    void set_input(istream& instream_ref) { ip = shared_ptr<istream>(&instream_ref); owns = false; }
-    void set_input(istream* instream_pt) { ip = shared_ptr<istream>(instream_pt); owns = true; }
+    // closes the previous input stream if owned
+    void set_input(istream& instream_ref) {clear(); ip = &instream_ref; owns = false; }
+    void set_input(istream* instream_pt) {clear(); ip = instream_pt; owns = true; }
 
 private:
-    shared_ptr<istream> ip;    // input stream pointer
+    void clear() {if(owns) delete ip;}
+
+    istream* ip;    // input stream pointer
     bool owns;
     Token ct {Kind::end};   // current token, default value in case of misuse
+    Token pt;
 };
 
 extern Token_stream ts;

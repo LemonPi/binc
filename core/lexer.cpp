@@ -3,12 +3,13 @@
 #include "error.h"
 #include "lexer.h"
 
-namespace Lexer {
+namespace Bincalc {
 
 
 Token_stream ts {nullptr};
 
 Token Token_stream::get() {
+    pt = ct;
     // read 1 char, decide what kind of token is incoming,
     // appropriately read more char then return Token
     char c = 0;
@@ -99,7 +100,8 @@ Token Token_stream::get() {
                 ct.kind = Kind::name;
                 return ct;
             }
-            Error::error("bad token");
+            string error_msg {"bad_token:["};
+            error(error_msg + static_cast<char>(c) + ']');
             return ct = {Kind::print};
     }
 }

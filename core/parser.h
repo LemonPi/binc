@@ -1,5 +1,6 @@
 #pragma once
-namespace Parser {
+
+namespace Bincalc {
 
 double expr(bool);
 

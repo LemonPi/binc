@@ -1,8 +1,10 @@
-#include "lookup.h"
-#define _USE_MATH_DEFINES
 #include <cmath>
+#include <iostream>
+#include "lookup.h"
+#include "functions.h"
 
-namespace Lookup {
+namespace Bincalc {
+
 using namespace std;
 
 vector<rep_type> history;
@@ -50,4 +52,14 @@ unordered_map<string, Unary_func> unary_funcs {
 };
 
 
-}	// end namespace Lookup
+// Num_formatter numeric_format = std::dec;
+unordered_map<string, Modifier_func> modifier_funcs {
+	{"exit", binc_exit},
+	{"quit", binc_exit},
+	{"hex", print_hex},
+	{"oct", print_oct},
+	{"dec", print_dec}
+};
+
+
+}	// end namespace Bincalc
