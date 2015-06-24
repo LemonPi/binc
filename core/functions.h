@@ -36,9 +36,19 @@ void clear_prompt() {
     prompt = "";
 }
 
+// information printing
 void print_history() {
 	for (const rep_type& val : history)
 		std::cout << val << '\n';
 }
+void print_unaries() {
+	for (const auto& unary : unary_funcs)
+		std::cout << unary.first << '\n';
+}
+void print_modifiers() {
+	for (const auto& modifier : modifier_funcs)
+		std::cout << modifier.first << '\n';
+}
+
 
 } // end namespace bincalc

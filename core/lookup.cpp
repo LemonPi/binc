@@ -15,7 +15,7 @@ unordered_map<string, rep_type> table {
 	{"e", 2.71828182845904523536}
 };
 
-unordered_map<string, Unary_func> unary_funcs {
+const unordered_map<string, Unary_func> unary_funcs {
 	{"abs", abs},
 	{"ceil", ceil},
 	{"floor", floor},
@@ -52,21 +52,29 @@ unordered_map<string, Unary_func> unary_funcs {
 };
 
 
-unordered_map<string, Modifier_func> modifier_funcs {
-	{"exit", binc_exit},
-	{"quit", binc_exit},
+const unordered_map<string, Modifier_func> modifier_funcs {
+	{"exit", 	binc_exit},
+	{"quit", 	binc_exit},
 	// numeric formatting
-	{"hex", print_hex},
-	{"oct", print_oct},
-	{"dec", print_dec},
+	{"hex", 	print_hex},
+	{"oct", 	print_oct},
+	{"dec", 	print_dec},
 	// print modes
-	{"terse", print_terse},
+	{"terse", 	print_terse},
 	{"verbose", print_verbose},
-	{"prompt", set_prompt},
+	{"prompt", 	set_prompt},
 	{"noprompt", clear_prompt},
 
-	{"hist", print_history},
-	{"history", print_history}
+	{"hist", 	print_history},
+	{"history", print_history},
+
+	{"funcs",	print_unaries},
+	{"unary", 	print_unaries},
+	{"unaries", print_unaries},
+	{"print_unaries", 	print_unaries},
+	{"modifier", 		print_modifiers},
+	{"modifiers", 		print_modifiers},
+	{"print_modifiers", print_modifiers}
 };
 
 

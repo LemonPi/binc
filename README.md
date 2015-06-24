@@ -124,6 +124,17 @@ noprompt
 // list history
 hist
 history
+
+// list functions and modifiers
+funcs
+unary
+unaries
+print_unaries
+
+modifier
+modifiers
+print_modifiers
+
 ```
 
 

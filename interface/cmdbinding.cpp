@@ -63,6 +63,8 @@ void calc_str_loop() {
 
 namespace bc =  Bincalc;
 int main(int argc, char* argv[]) {
+    bc::history.reserve(bc::init_hist_capacity);
+
     switch (argc) {
         case 1:
             bc::calculate();

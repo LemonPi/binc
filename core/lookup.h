@@ -11,8 +11,8 @@ using Unary_func = rep_type (*)(rep_type);
 using Modifier_func = void (*)();
 
 extern std::unordered_map<std::string, rep_type> table;
-extern std::unordered_map<std::string, Unary_func> unary_funcs;
-extern std::unordered_map<std::string, Modifier_func> modifier_funcs;
+extern const std::unordered_map<std::string, Unary_func> unary_funcs;
+extern const std::unordered_map<std::string, Modifier_func> modifier_funcs;
 extern std::vector<rep_type> history;
 
 }
