@@ -1,5 +1,5 @@
-binc.exe*
-binc.exe
+binc*
+binc
 log.txt
 *.o
 build/

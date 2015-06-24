@@ -36,7 +36,7 @@ void print_result(rep_type result) {
 }
 
 void print_prompt() {
-    cout << "> ";
+    cout << prompt;
 }
 
 

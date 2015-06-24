@@ -62,6 +62,8 @@ unordered_map<string, Modifier_func> modifier_funcs {
 	// print modes
 	{"terse", print_terse},
 	{"verbose", print_verbose},
+	{"prompt", set_prompt},
+	{"noprompt", clear_prompt},
 
 	{"hist", print_history},
 	{"history", print_history}

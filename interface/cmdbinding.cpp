@@ -12,6 +12,7 @@ namespace Bincalc {
 bool terse = false;
 // print normally
 bool suppress_print = false;
+std::string prompt {"> "};
 
 void calculate() {
     ts.set_input(cin);
@@ -23,6 +24,7 @@ void calculate() {
         if (ts.current().kind == Kind::end) break;
         if (ts.current().kind == Kind::print) continue;
         rep_type result = expr(false);
+
         print_result(result);
         if (ts.current().kind == Kind::newline) print_prompt();
     }

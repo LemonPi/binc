@@ -29,6 +29,7 @@ public:
     ~Token_stream() {clear();}
 
     Token get();    // read and return next token
+    void end_stream() {ip->setstate(ios_base::eofbit);}
     const Token& current() { return ct; } // most recently read token
     const Token& previous() { return pt; } 
 

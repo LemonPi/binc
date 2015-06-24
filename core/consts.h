@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 #ifdef DEBUG_BUILD
 #	define DEBUG(x) {std::cerr << x << '\n';} 
@@ -16,4 +17,6 @@ constexpr rep_type round_off = 1e-10;
 extern bool terse;
 // sometimes want to suppress printing such as after a modifying function call
 extern bool suppress_print;
+extern std::string prompt;
+
 }
