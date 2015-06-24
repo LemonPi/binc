@@ -30,8 +30,7 @@ void calculate() {
 void calc_str(string s) {
     ts.set_input(new istringstream(s));
     rep_type result = expr(true);
-    print_result(result);
-    print_prompt();
+    cout << result;
 }
 
 void calc_str_loop() {
@@ -51,8 +50,8 @@ int main(int argc, char* argv[]) {
         case 1:
             break;
         case 2:
-            bc::ts.set_input(new std::istringstream{argv[1]});
-            break;
+            bc::calc_str(argv[1]);
+            return 0;
         default:
             bc::error("too many arguments");
             return 1;
