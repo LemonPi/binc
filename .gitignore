@@ -1,2 +1,4 @@
 binc.exe*
 log.txt
+*.o
+build/

@@ -39,9 +39,9 @@ unordered_map<string, Unary_func> unary_funcs {
 	{"atanh", atanh},
 
 	// logarithms and exponential
-	{"log", log},	// natural
-	{"log10", log10},
-	{"log2", log2},
+	{"ln", log},	// natural
+	{"log", log10},
+	{"lg", log2},	// base 2
 	{"exp", exp},
 	{"exp2", exp2},
 
@@ -52,13 +52,19 @@ unordered_map<string, Unary_func> unary_funcs {
 };
 
 
-// Num_formatter numeric_format = std::dec;
 unordered_map<string, Modifier_func> modifier_funcs {
 	{"exit", binc_exit},
 	{"quit", binc_exit},
+	// numeric formatting
 	{"hex", print_hex},
 	{"oct", print_oct},
-	{"dec", print_dec}
+	{"dec", print_dec},
+	// print modes
+	{"terse", print_terse},
+	{"verbose", print_verbose},
+
+	{"hist", print_history},
+	{"history", print_history}
 };
 
 

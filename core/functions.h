@@ -1,4 +1,5 @@
 #include "consts.h"
+#include "lookup.h"
 #include <cstdlib>
 #include <iostream>
 
@@ -17,6 +18,19 @@ void print_oct() {
 }
 void print_dec() {
 	std::cout << std::dec;
+}
+
+// print information
+void print_verbose() {
+	terse = false;
+}
+void print_terse() {
+	terse = true;
+}
+
+void print_history() {
+	for (const rep_type& val : history)
+		std::cout << val << '\n';
 }
 
 } // end namespace bincalc

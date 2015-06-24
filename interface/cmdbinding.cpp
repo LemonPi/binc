@@ -8,6 +8,11 @@
 
 namespace Bincalc {
 
+// for command line usage, print verbose by default
+bool terse = false;
+// print normally
+bool suppress_print = false;
+
 void calculate() {
     ts.set_input(cin);
     print_prompt();

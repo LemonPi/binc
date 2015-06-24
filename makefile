@@ -29,7 +29,7 @@ ${SOURCES}:
 	@mkdir -p $(dir $@)
 
 clean:
-	rm -rf *o $(EXECUTIBLE)
+	rm -rf build/* $(EXECUTIBLE)
 
 test: $(EXECUTIBLE)
 	valgrind -q --track-origins=yes ./$(EXECUTIBLE)
