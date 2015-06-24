@@ -93,14 +93,14 @@ rep_type prim(bool need_get) {
             // function names will mask value names, look in functions first
             auto unary_func = unary_funcs.find(var_name);
             if (unary_func != unary_funcs.end()) {
-                cout << unary_func->first << " called (unary)\n";
+                DEBUG(unary_func->first << " called (unary)");
                 return unary_func->second(prim(true));
             }
 
             // functions that take no arguments and modify state
             auto modifier_func = modifier_funcs.find(var_name);
             if (modifier_func != modifier_funcs.end()) {
-                cout << modifier_func->first << " called (modifier)\n";
+                DEBUG(modifier_func->first << " called (modifier)");
                 modifier_func->second();
                 ts.get();
                 suppress_print = true;

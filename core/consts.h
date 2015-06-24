@@ -1,5 +1,13 @@
 #pragma once
 
+#define DEBUG_BUILD
+
+#ifdef DEBUG_BUILD
+#	define DEBUG(x) {std::cerr << x << '\n';} 
+#else
+#	define DEBUG(x)
+#endif
+
 namespace Bincalc {
 
 using rep_type = double;   // int, unsigned int, double 

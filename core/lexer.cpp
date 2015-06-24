@@ -100,8 +100,7 @@ Token Token_stream::get() {
                 ct.kind = Kind::name;
                 return ct;
             }
-            string error_msg {"bad_token:["};
-            error(error_msg + static_cast<char>(c) + ']');
+            error("bad token");
             return ct = {Kind::print};
     }
 }
