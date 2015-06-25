@@ -6,6 +6,14 @@
 
 namespace Bincalc {
 
+// unaries ------------------
+rep_type generate_random(rep_type max) {
+	return rand() % ((long long) max + 1);
+}
+
+
+
+// modifiers ----------------
 void binc_exit() {
     ts.end_stream();
 	// exit(0);

@@ -47,7 +47,9 @@ const unordered_map<string, Unary_func> unary_funcs {
 
 	// root functions
 	{"sqrt", sqrt},
-	{"cbrt", cbrt}
+	{"cbrt", cbrt},
+
+	{"rand", generate_random}
 
 };
 
