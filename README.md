@@ -6,7 +6,7 @@ Offers bitwise operators and multiple (hex, oct, dec) input and display modes.
 Especially useful for practicing boolean algebra and bit manipulation.  
 
 ### Get started
- 1. clone anywhere `git clone https://github.com/LemonPi/bincalc.git`
+ 1. clone anywhere `git clone https://github.com/LemonPi/binc.git`
  2. open command line in directory
  3. `make` (for windows users, a Cygwin binary exists under bin/)
  4. (recommended) either put `binc` or a symlink of it in your system path
