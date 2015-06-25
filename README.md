@@ -1,7 +1,7 @@
 binc
 =======
 
-Fast and intuitive command line calculator.  
+Fast and intuitive command line calculator in C++.  (pronounced "bink")
 Offers bitwise operators and multiple (hex, oct, dec) input and display modes.  
 Especially useful for practicing boolean algebra and bit manipulation.  
 
@@ -137,11 +137,16 @@ print_modifiers
 
 ```
 
+### Why binc?
+ - no 3rd party dependencies 
+ - input and output in binary, hex, and oct
+ - bit display in verbose mode (no other calculator has this out of the box)
+ - change display to hex and oct with a single command 
+ - instantaneous load (take that Google and Python)
+ - can feed pipes and files to
 
 Todo:
- - ~~function support (common trig functions)~~
  - symbolic math
- - ~~keep track of value history~~
 
 Tips:
 - requires a compiler supporting C++11 (makefile builds with g++ by default)
