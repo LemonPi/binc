@@ -1,7 +1,7 @@
 binc
 =======
 
-Fast and intuitive command line calculator in C++.  (pronounced "bink")
+Fast and intuitive command line calculator in C++. (pronounced "bink")  
 Offers bitwise operators and multiple (hex, oct, dec) input and display modes.  
 Especially useful for practicing boolean algebra and bit manipulation.  
 
@@ -72,6 +72,7 @@ and functions that modify binc's state. The code in `core/lookup.cpp` is more up
 than this readme.
 
 #### Math functions
+These functions take 1 argument and return 1 value `(f: R x R -> R)`
 ```
 abs
 ceil
@@ -104,6 +105,8 @@ cbrt
 
 
 #### Modifiers
+These functions take no argument and adjust the state of binc,
+their effects lasting until another modifier in their group gets called.
 ```
 exit
 quit   // same as exit
@@ -145,13 +148,70 @@ print_modifiers
  - instantaneous load (take that Google and Python)
  - can feed pipes and files to
 
-Todo:
- - symbolic math
+## Detailed Usage
+#### Input
+Input can be in decimal, binary, octal, or hexadecimal:
+```
+> x = 100
+0000 0000 0000 0000 0000 0000 0110 0100 (100)
+> x = b100
+0000 0000 0000 0000 0000 0000 0000 0100 (4)
+> x = 0100
+0000 0000 0000 0000 0000 0000 0100 0000 (64)
+> x = 0x100
+0000 0000 0000 0000 0000 0001 0000 0000 (256)
+```
 
-Tips:
-- requires a compiler supporting C++11 (makefile builds with g++ by default)
-- put \ in front of letters to use literal character (e.g. \b = 98)
-- Ctrl + C can also exit
-- 0xnum is hex, 0num is oct, bnum is binary
+#### Output
+Similarly, output can be in dec, bin, oct, or hex:
+```
+> x = 100
+0000 0000 0000 0000 0000 0000 0110 0100 (100)
+> hex
+> x
+0000 0000 0000 0000 0000 0000 0110 0100 (64)
+> oct
+> x
+0000 0000 0000 0000 0000 0000 0110 0100 (144)
+> terse
+> x
+144
+> verbose
+> x
+0000 0000 0000 0000 0000 0000 0110 0100 (144)
+```
+
+#### Character literals
+Instead of treating the character as a variable, take the ASCII value of it
+```
+> a
+error: a not found
+> \a
+0000 0000 0000 0000 0000 0000 0110 0001 (141)
+```
+
+#### History
+```
+... some commands
+> hist
+100
+1
+2
+98
+97
+97
+> @
+0000 0000 0000 0000 0000 0000 0110 0001 (97)
+> @@@
+0000 0000 0000 0000 0000 0000 0110 0010 (98)
+> @@@@
+0000 0000 0000 0000 0000 0000 0000 0010 (2)
+```
+Note that querying for previous commands doesn't add to the history.
+
+
+### Tips
+- requires C++11 (makefile builds with g++ by default)
+- exit by `exit`, `quit`, or `Ctrl + C `
 - order of operation: parentheses --> binary ops --> * / --> + -
 
