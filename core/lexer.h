@@ -47,6 +47,7 @@ private:
 };
 
 extern Token_stream ts;
+extern ostream& os;
 
 bool isname_punc(char c);
 

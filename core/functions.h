@@ -21,13 +21,13 @@ void binc_exit() {
 
 // numeric base format flag
 void print_hex() {
-	std::cout << std::hex;
+	os << std::hex;
 }
 void print_oct() {
-	std::cout << std::oct;
+	os << std::oct;
 }
 void print_dec() {
-	std::cout << std::dec;
+	os << std::dec;
 }
 
 // print information
@@ -47,15 +47,15 @@ void clear_prompt() {
 // information printing
 void print_history() {
 	for (const rep_type& val : history)
-		std::cout << val << '\n';
+		os << val << '\n';
 }
 void print_unaries() {
 	for (const auto& unary : unary_funcs)
-		std::cout << unary.first << '\n';
+		os << unary.first << '\n';
 }
 void print_modifiers() {
 	for (const auto& modifier : modifier_funcs)
-		std::cout << modifier.first << '\n';
+		os << modifier.first << '\n';
 }
 
 

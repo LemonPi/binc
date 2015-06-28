@@ -7,6 +7,7 @@ namespace Bincalc {
 
 
 Token_stream ts {nullptr};
+ostream& os = std::cout;
 
 Token Token_stream::get() {
     pt = ct;
