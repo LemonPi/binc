@@ -10,22 +10,21 @@ using namespace emscripten;
 using namespace Bincalc;
 
 
-
-
-namespace bc = Bincalc;
-
-bool bc::terse = false;
-bool bc::suppress_print = false;
-std::string bc::prompt {"> "};
+namespace Bincalc {
+bool terse = false;
+bool suppress_print = false;
+std::string prompt {"> "};
+}
 
 
 std::string calc_str(std::string input) {
-	bc::ts.set_input(new istringstream(input));
-	ostringstream os = std::ostringstream {};
+	ts.set_input(new istringstream(input));
+	ostringstream out = std::ostringstream {};
 	rep_type result = expr(true);
 	
-	bc::print_result(result, os);
-	return os.str();
+	print_result(result, out);
+	if (ts.current().kind == Kind::newline) print_prompt(out);
+	return out.str();
 }
 
 EMSCRIPTEN_BINDINGS(my_module) {
