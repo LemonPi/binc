@@ -8,7 +8,7 @@
 
 namespace Bincalc {
 
-void print_result(rep_type result) {
+void print_result(rep_type result, std::ostream& out = os) {
     // suppress should only take affect for one result
     if (suppress_print) {suppress_print = false; return;}
 
@@ -18,23 +18,23 @@ void print_result(rep_type result) {
 
     // skip binary representation
     if (terse) {
-        if (os.flags() & std::ios::dec) os << result << '\n'; 
-        else os << (long long) result << '\n';
+        if (out.flags() & std::ios::dec) out << result << '\n'; 
+        else out << (long long) result << '\n';
         return;
     }
 
 
     std::bitset<bit_num> bin_rep(result);
     for (int bit = bit_num - 1; bit >= 3; bit -= 4) {
-        os << bin_rep[bit] << bin_rep[bit - 1] << bin_rep[bit - 2] << bin_rep[bit - 3] << ' ';
+        out << bin_rep[bit] << bin_rep[bit - 1] << bin_rep[bit - 2] << bin_rep[bit - 3] << ' ';
     }
 
-    if (os.flags() & std::ios::dec) os << '(' << result << ')' << '\n';    // normal print for decimals
-    else os << '(' << (long long) result << ')' << '\n';  // need to cast to integral form for hex and oct printing
+    if (out.flags() & std::ios::dec) out << '(' << result << ')' << '\n';    // normal print for decimals
+    else out << '(' << (long long) result << ')' << '\n';  // need to cast to integral form for hex and oct printing
 }
 
-void print_prompt() {
-    os << prompt;
+void print_prompt(std::ostream& out = os) {
+    out << prompt;
 }
 
 void calculate() {

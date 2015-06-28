@@ -1,4 +1,4 @@
-CC=g++
+CXX=g++
 OPTIMIZATION=-O3
 
 CFLAGS=-Wall -Werror -std=c++11
@@ -22,12 +22,12 @@ debug: $(EXECUTIBLE)
 
 # $@ is automatic variable for target name
 $(EXECUTIBLE): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $@
+	$(CXX) $(OBJECTS) -o $@
 
 $(BUILD_DIR)/%.o: %.cpp
 	@mkdir -p $(dir $@)
 	@echo Compiling $<
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CXX) $(CFLAGS) -c -o $@ $<
 
 ${SOURCES}:
 	@echo Creating $@

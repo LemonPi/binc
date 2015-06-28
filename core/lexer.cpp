@@ -5,7 +5,7 @@
 
 namespace Bincalc {
 
-
+// defaults; overriden by interface
 Token_stream ts {nullptr};
 ostream& os = std::cout;
 
