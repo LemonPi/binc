@@ -5,6 +5,8 @@ Fast and intuitive command line calculator in C++. (pronounced "bink")
 Offers bitwise operators and multiple (hex, oct, dec) input and display modes.  
 Especially useful for practicing boolean algebra and bit manipulation.  
 
+[**Online console**](http://johnsonzhong.me/projects/bincalc/tester.html)
+
 ### Get started
  1. clone anywhere `git clone https://github.com/LemonPi/binc.git`
  2. open command line in directory
