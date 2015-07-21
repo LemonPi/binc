@@ -62,8 +62,8 @@ Token Token_stream::get() {
         case '9':
         case '.':
             ip->putback(c);
-            if (ct.kind == Kind::hex) { int tmp; *ip >> hex >> tmp; ct.number_val = static_cast<rep_type>(tmp); }
-            else if (ct.kind == Kind::oct) { int tmp; *ip >> oct >> tmp; ct.number_val = static_cast<rep_type>(tmp); }
+            if (ct.kind == Kind::hex) { long tmp; *ip >> hex >> tmp; ct.number_val = static_cast<rep_type>(tmp); }
+            else if (ct.kind == Kind::oct) { long tmp; *ip >> oct >> tmp; ct.number_val = static_cast<rep_type>(tmp); }
             else *ip >> ct.number_val;
             ct.kind = Kind::number;
             return ct;
