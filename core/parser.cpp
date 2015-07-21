@@ -38,7 +38,6 @@ rep_type term (bool need_get) {   // multiply and divide
                     break;
                 }
                 return error("modulo by 0");
-            case Kind::pow: left = pow(left, bit_term(true)); break;
             default: return left;
         }
     }
@@ -69,8 +68,9 @@ rep_type unary_term (bool need_get) {   // unary modification of term
         switch (ts.current().kind) {
             case Kind::bneg: left_int = static_cast<int>(prim(true)); left_int = ~left_int; left = left_int; break;
             case Kind::lit: left = static_cast<rep_type>(prim(true)); break;
+            case Kind::pow: left = pow(left, prim(true)); break;
             // didn't call prim, so get next and return directly
-            case Kind::fact: for (int i = left_int - 1; i > 1; --i) left *= i; ts.get(); 
+            case Kind::fact: for (int i = left_int - 1; i > 1; --i) left *= i; ts.get();  return left;
             default: return left;
         }
     }
