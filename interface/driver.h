@@ -13,8 +13,8 @@ void print_result(rep_type result, std::ostream& out = os) {
     if (suppress_print) {suppress_print = false; return;}
 
     if (std::abs(result) < round_off) result = 0;
-    // need to query previous token since parsing eats the next token
-    if (ts.previous().kind != Kind::last) history.push_back(result);
+    // add to history if the previous statement wasn't a pure query
+    if (!ts.pure_query_expr()) history.push_back(result);
 
     // skip binary representation
     if (terse) {
@@ -40,14 +40,13 @@ void print_prompt(std::ostream& out = os) {
 void calculate() {
     print_prompt();
     while (true) {
-        ts.get();
-        DEBUG('[' << static_cast<char>(ts.current().kind) << ']')
+        // ts.get();
+        rep_type result = expr(true);
 
         if (ts.current().kind == Kind::end) break;
-        if (ts.current().kind == Kind::print) continue;
-        rep_type result = expr(false);
-
         print_result(result);
+        if (ts.current().kind == Kind::print) continue;
+
         if (ts.current().kind == Kind::newline) print_prompt();
     }
 }
@@ -56,9 +55,7 @@ void calculate() {
 void calculate_pipe() {
     terse = true;
     while (true) {
-        ts.get();
         if (ts.current().kind == Kind::end) break;
-        if (ts.current().kind == Kind::print) continue;
         rep_type result = expr(false);
         print_result(result);
     }

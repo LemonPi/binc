@@ -1,6 +1,7 @@
 #include <cmath>
 #include "parser_impl.h"
 #include "lookup.h"
+#include "lexer.h"
 
 
 namespace Bincalc {
@@ -9,6 +10,7 @@ using namespace std;
 
 
 rep_type expr(bool need_get) {    // add and subtract
+    ts.start_expr();
     rep_type left = term(need_get);
 
     while (true) {
@@ -78,6 +80,7 @@ rep_type unary_term (bool need_get) {   // unary modification of term
 
 rep_type prim(bool need_get) {
     if (need_get) ts.get(); // read next token
+    DEBUG("prim token: " << '[' << static_cast<char>(ts.current().kind) << ']')
 
     switch (ts.current().kind) {
         case Kind::fact:    // expects number to be stored 
