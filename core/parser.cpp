@@ -56,7 +56,6 @@ rep_type bit_term (bool need_get) {   // bitwise operations
             case Kind::band: left_int &= static_cast<int>(unary_term(true)); left = left_int; break;
             case Kind::bor: left_int |= static_cast<int>(unary_term(true)); left = left_int; break;
             case Kind::bxor: left_int ^= static_cast<int>(unary_term(true)); left = left_int; break;
-            case Kind::mag_neg: left = -1 * unary_term(true); break;
             default: return left;
         }
     }
@@ -73,6 +72,7 @@ rep_type unary_term (bool need_get) {   // unary modification of term
             case Kind::pow: left = pow(left, prim(true)); break;
             // didn't call prim, so get next and return directly
             case Kind::fact: for (int i = left_int - 1; i > 1; --i) left *= i; ts.get();  return left;
+            case Kind::mag_neg: left = -1 * prim(true); break;
             default: return left;
         }
     }
@@ -86,6 +86,7 @@ rep_type prim(bool need_get) {
         case Kind::fact:    // expects number to be stored 
         case Kind::number: {
             rep_type val = ts.current().number_val;
+            DEBUG("primary number with value " << val);
             ts.get();
             return val;
         }
@@ -123,6 +124,7 @@ rep_type prim(bool need_get) {
                 auto val_itr = table.find(var_name);
                 if (val_itr != table.end()) {
                     rep_type& val = val_itr->second;  
+                    DEBUG("lookup on " << var_name << ": " << val);
                     return val;
                 }
                 else {

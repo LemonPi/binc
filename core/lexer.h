@@ -43,7 +43,6 @@ public:
         pure_query = true;
     }
     void modifying_token(char c) {
-        DEBUG("Expression modified by [" << c << ']');
         pure_query = false;
     }
     bool pure_query_expr() const {return pure_query;}
