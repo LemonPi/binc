@@ -55,9 +55,9 @@ void calculate() {
 void calculate_pipe() {
     terse = true;
     while (true) {
-        if (ts.current().kind == Kind::end) break;
-        rep_type result = expr(false);
+        rep_type result = expr(true);
         print_result(result);
+        if (ts.current().kind == Kind::end) break;
     }
 }
 
