@@ -47,12 +47,13 @@ rep_type term (bool need_get) {   // multiply and divide
 
 rep_type bit_term (bool need_get) {   // bitwise operations
     rep_type left = unary_term(need_get);
-    int left_int = left;  // ensure integral type used here
+    int left_int = left;  // ensure integral type used here; 
 
     while (true) {
         switch (ts.current().kind) {
-            case Kind::lshift: left_int <<= static_cast<int>(unary_term(true)); left = left_int; break;
-            case Kind::rshift: left_int >>= static_cast<int>(unary_term(true)); left = left_int; break;
+		    // unsigned to use logical shift
+            case Kind::lshift: left_int = (unsigned)left_int << static_cast<int>(unary_term(true)); left = left_int; break;
+            case Kind::rshift: left_int = (unsigned)left_int >> static_cast<int>(unary_term(true)); left = left_int; break;
             case Kind::band: left_int &= static_cast<int>(unary_term(true)); left = left_int; break;
             case Kind::bor: left_int |= static_cast<int>(unary_term(true)); left = left_int; break;
             case Kind::bxor: left_int ^= static_cast<int>(unary_term(true)); left = left_int; break;
